@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText etTitle, etSingers, etYear;
     RadioGroup rgStars;
+    RadioButton star1, star2, star3, star4 ,star5;
     Button btnInsert, btnList;
 
     @Override
@@ -27,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
         etSingers = findViewById(R.id.etSingers);
         etYear = findViewById(R.id.etYear);
         rgStars = findViewById(R.id.rgStars);
+        star1 = findViewById(R.id.stars1);
+        star2 = findViewById(R.id.stars2);
+        star3 = findViewById(R.id.stars3);
+        star4 = findViewById(R.id.stars4);
+        star5 = findViewById(R.id.stars5);
         btnInsert = findViewById(R.id.btnInsert);
         btnList = findViewById(R.id.btnList);
 
@@ -66,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
         String title = etTitle.getText().toString();
         String singers = etSingers.getText().toString();
         String year = etYear.getText().toString();
+        int selectedId = rgStars.getCheckedRadioButtonId();
+        RadioButton selectedButton = (RadioButton) findViewById(selectedId);
+        int stars = Integer.parseInt(selectedButton.getText().toString());
 
         SharedPreferences prefs = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor prefEdit = prefs.edit();
@@ -73,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         prefEdit.putString("title", title);
         prefEdit.putString("singers", singers);
         prefEdit.putString("year", year);
+        prefEdit.putInt("stars", stars);
 
         prefEdit.commit();
     }
@@ -84,9 +94,21 @@ public class MainActivity extends AppCompatActivity {
         String title = prefs.getString("title", "");
         String singers = prefs.getString("singers", "");
         String year = prefs.getString("year", "");
+        int stars = prefs.getInt("stars", 0);
 
         etTitle.setText(title);
         etSingers.setText(singers);
         etYear.setText(year);
+        if (stars == 1) {
+            star1.setChecked(true);
+        } else if (stars == 2) {
+            star2.setChecked(true);
+        } else if (stars == 3) {
+            star3.setChecked(true);
+        } else if (stars == 4) {
+            star4.setChecked(true);
+        } else if (stars == 5) {
+            star5.setChecked(true);
+        }
     }
 }
